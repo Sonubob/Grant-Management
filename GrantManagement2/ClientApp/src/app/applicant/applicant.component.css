@@ -1,0 +1,24 @@
+body {
+}
+
+.mat-container-class {
+  height: calc(100% + 0px);
+  background-color: #e4e2de
+}
+
+.logout-class {
+  cursor: pointer;
+  color: #3472d7
+}
+
+.heading-class {
+  color: #4472c4;
+}
+
+.fieldlength-half-class{
+    width:45%;
+}
+
+  .fieldlength-half-class > input {
+    width: 100%
+  }

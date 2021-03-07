@@ -1,0 +1,34 @@
+<div style="display:flex">
+  <button style=" margin-top: -7px;" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item aria-label="Example icon button with a delete icon" (click)="AddNewRow()">
+      <mat-icon>playlist_add</mat-icon>
+      <span>Add rows</span>
+    </button>
+    <button mat-menu-item aria-label="Example icon button with a delete icon" (click)="DeleteRow()">
+      <mat-icon>delete</mat-icon>
+      <span>Delete selected</span>
+    </button>
+
+  </mat-menu>
+
+  <span style="color:#4472c4;margin-right:76%"> Grant Details:</span>
+  <button  mat-raised-button color="primary" style="float:right;margin-bottom:2px" class="example-icon favorite-icon" aria-label="Example icon-button with save icon" (click)="onCellValueChange()">
+   Save <mat-icon>save</mat-icon>
+  </button>
+</div>
+
+
+<ag-grid-angular #grantGrid style="width:100%; height: 100%;"
+                 class="ag-theme-balham"
+                 [rowData]="rowData"
+                 [gridOptions]="gridOptions"
+                 [columnDefs]="columnDefs" [pagination]="true" [paginationPageSize]="10"  [frameworkComponents]="components" (gridReady)="onGridReady($event)">
+</ag-grid-angular>
+
+
+<!--(cellValueChanged)="onCellValueChange()"-->
+<!--<input type="button" value="AddNewRow" (click)="AddNewRow()"/>
+<input type="button" value="DeleteRow" (click)="DeleteRow()"/>-->

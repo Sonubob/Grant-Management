@@ -1,0 +1,105 @@
+
+<div class="background-image-class">
+  <br />
+
+  <div style="width:70%;background-color:#673ab7;margin-top:5%;margin-left:5%">
+    <div style="width: 100%;margin:2%;background-color:white ">
+      <br />
+      <table style="width:100%">
+        <tr>
+          <td>&nbsp;</td>
+          <td style="width:20%">
+            <h1 style="color:rebeccapurple"> Welcome to Grant Management</h1>
+          </td>
+          <td>&nbsp;</td>
+          <td style="width:70%">
+
+            <div style="width:70%;margin-left:20%">
+              <mat-card>
+                <mat-card-title><span style="color:darkblue">Login</span></mat-card-title>
+                <form #form="ngForm">
+                  <!--<table style="margin-left:10%">
+      <tr>
+      <td>Enter your email</td>
+        <td>-->
+                  <!--<input type="email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}$" name="email" [(ngModel)]="person.UserID" #emailField="ngModel" />-->
+                  <!--</td>-->
+                  <!--<td>
+        <span *ngIf="emailField.invalid && emailField.touched && emailField.errors.required" style="color:red">
+          Email address is mandatory
+        </span>
+        <span *ngIf="emailField.invalid && emailField.touched && emailField.errors.pattern" style="color:red">
+          Email address is not in the correct format
+        </span>
+      </td>-->
+                  <!--</tr>
+        <tr>
+          <td> <label>Password</label></td>
+          <td><input type="password" required name="password" [(ngModel)]="person.Password" #passwordField="ngModel" /></td>
+          <td>
+            <span [hidden]="passwordField.valid" style="color:red">
+              Password is mandatory
+            </span>
+          </td>
+        </tr>
+      </table>-->
+                  <div style="margin-left:2%">
+                    <mat-form-field appearance="standard" style=" width: 100%;">
+                      <mat-label>Enter your email</mat-label>
+                      <input style="width:100%" matInput placeholder="pat@example.com" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}$" name="email" [(ngModel)]="person.UserID" #emailField="ngModel">
+
+                      <mat-error *ngIf="emailField.invalid && emailField.touched && emailField.errors.required"> Email address is mandatory</mat-error>
+                      <mat-error *ngIf="emailField.invalid && emailField.touched && emailField.errors.pattern">  Email address is not in the correct format</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <br />
+                  <div style="margin-left:2%">
+                    <mat-form-field appearance="standard" style="width: 100%;">
+                      <mat-label>Enter your password</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" required name="password" [(ngModel)]="person.Password" #passwordField="ngModel">
+                      <mat-error *ngIf="passwordField.valid">Password is mandatory</mat-error>
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <br />
+
+
+                  <div>
+                    <button style="margin-left:2%" mat-raised-button color="primary" [disabled]="form.invalid"  (click)="onSubmit(form)">Login</button>
+                    <!--<input style=" margin-left: 10%;" type="submit"  />-->
+                    <a style=" margin-left: 16%;" [routerLink]="['/Register']">
+                     Not an existing member? Register
+                    </a>
+
+                  </div>
+
+
+
+
+
+
+
+                  <!--{{person|json}}-->
+                  <!--{{emailField.errors|json}}-->
+
+                </form>
+
+
+              </mat-card>
+            </div>
+          
+
+          </td>
+        </tr>
+      </table>
+
+
+      <br />
+    </div>
+  </div>
+
+
+</div>
+

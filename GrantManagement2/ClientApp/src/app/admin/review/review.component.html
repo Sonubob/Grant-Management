@@ -1,0 +1,32 @@
+<!--<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <table>
+    <tr>
+      <th>Applicant Name</th>
+      <th> Program Code</th>
+      <th>Country</th>
+      <th>Application Status</th>
+      <th> Reviewer Status</th>
+
+    </tr>
+    <tr *ngFor="let applicant of applicantDetails;let i = index">
+      <td style="text-align:center"><span>{{applicant.fullName}}</span></td>
+      <td style="text-align:center"><span style="text-align:center">{{applicant.programCode}}</span></td>
+      <td style="text-align:center"><span style="text-align:center">{{applicant.country}}</span></td>
+      <td style="text-align:center"><span style="text-align:center">{{applicant.applicationStatus}}</span></td>
+      <td style="text-align:center">
+        <select [(ngModel)]="applicant.reviewStatus" id="{{i}}status" name="reviewStatus" (change)="onValueChange(i)">
+          <option *ngFor="let action of actions" [ngValue]="action.Value">{{action.Id}}</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</form>-->
+<span style="color:#4472c4"> Student Grant Details:</span>
+
+<ag-grid-angular #grantGrid style="width:100%; height: 100%;width:100%"
+                 class="ag-theme-balham"
+                 [rowData]="rowData"
+                 [gridOptions]="gridOptions"
+                 [columnDefs]="columnDefs" [frameworkComponents]="components" (gridReady)="onGridReady($event)">
+</ag-grid-angular>
+

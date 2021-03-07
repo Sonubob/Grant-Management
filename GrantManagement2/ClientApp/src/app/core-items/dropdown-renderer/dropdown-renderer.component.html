@@ -1,0 +1,3 @@
+<select [(ngModel)]="dropdownitem" (change)="onValueChange($event)">
+  <option *ngFor="let entry of DropdownList" [value]="entry.id">{{entry.name}}</option>
+</select>

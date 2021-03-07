@@ -1,0 +1,115 @@
+
+<div class="background-image-class">
+
+  <div style="width:50%;margin-left:20%;">
+   
+      <br />
+      <mat-card style="margin-bottom:10%">
+        <h1 style="color:darkblue">Register</h1>
+        <span style="color:darkblue">Sign up for applying grant programs</span>
+        <br />
+
+        <form [formGroup]="registerGroup">
+          <div>
+            <!--<div>
+          <label>Email</label>
+
+          <p> <input formControlName="EmailID" /></p>
+          <span style="color:red" *ngIf="registerGroup.controls['EmailID'].hasError('required') && (EmailID.touched || EmailID.dirty)">Email id is required</span>
+          <span style="color:red" *ngIf="EmailID.errors?.email && (EmailID.touched || EmailID.dirty)">Email id is in an incorrect format</span>
+        </div>-->
+            <mat-form-field appearance="standard" style=" width: 100%;">
+              <mat-label>Email</mat-label>
+              <input style="width:100%" matInput placeholder="pat@example.com" required formControlName="EmailID">
+
+              <mat-error *ngIf="registerGroup.controls['EmailID'].hasError('required') && (EmailID.touched || EmailID.dirty)"> Email address is mandatory</mat-error>
+              <mat-error *ngIf="EmailID.errors?.email && (EmailID.touched || EmailID.dirty)">  Email address is not in the correct format</mat-error>
+            </mat-form-field>
+            <!--<div>
+          <label></label>
+
+          <p> <input formControlName="Password" /></p>
+          <span style="color:red" *ngIf="registerGroup.controls['Password'].hasError('required') && (Password.touched || Password.dirty)">Password is required</span>
+        </div>-->
+            <mat-form-field appearance="standard" style=" width: 100%;">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'"  formControlName="Password">
+              <mat-error *ngIf="registerGroup.controls['Password'].hasError('required') && (Password.touched || Password.dirty)">Password is mandatory</mat-error>
+              <mat-error *ngIf="Password.errors?.pattern && (Password.touched || Password.dirty)"> Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase    
+                                letter and 1 number </mat-error>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <!--<div>
+          <label>Confirm Password</label>
+
+          <p> <input type="password" formControlName="ConfirmPassword" /></p>
+          <span style="color:red" *ngIf="registerGroup.errors?.passwordMismatch && (ConfirmPassword.touched || ConfirmPassword.dirty)">Password is not the same</span><br />
+          <span style="color:red" *ngIf="ConfirmPassword.errors?.required && (ConfirmPassword.touched || ConfirmPassword.dirty)">Confirm Password is required</span>
+        </div>-->
+            <mat-form-field appearance="standard" style=" width: 100%;">
+              <mat-label>Confirm Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [errorStateMatcher]="errorMatcher" formControlName="ConfirmPassword">
+              <mat-error *ngIf="registerGroup.errors?.passwordMismatch && (ConfirmPassword.touched || ConfirmPassword.dirty)">Password is not the same</mat-error>
+              <mat-error *ngIf="ConfirmPassword.errors?.required && (ConfirmPassword.touched || ConfirmPassword.dirty)">Confirm Password is required</mat-error>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <!--<div>
+          <label>First Name</label>
+
+          <p> <input formControlName="FirstName" /></p>
+          <span style="color:red" *ngIf="registerGroup.controls['FirstName'].hasError('required') && (FirstName.touched || FirstName.dirty)">FirstName is required</span>
+        </div>-->
+            <mat-form-field appearance="standard" style=" width: 100%;">
+              <mat-label>First Name</mat-label>
+              <input style="width:100%" matInput required formControlName="FirstName">
+
+              <mat-error *ngIf="registerGroup.controls['FirstName'].hasError('required') && (FirstName.touched || FirstName.dirty)"> FirstName is mandatory</mat-error>
+
+            </mat-form-field>
+            <!--<div>
+          <label>Last Name</label>
+          <p> <input formControlName="LastName" /></p>
+          <span style="color:red" *ngIf="registerGroup.controls['LastName'].hasError('required') && (LastName.touched || LastName.dirty)">LastName is required</span>
+        </div>-->
+            <mat-form-field appearance="standard" style=" width: 100%;">
+              <mat-label>Last Name</mat-label>
+              <input style="width:100%" matInput required formControlName="LastName">
+
+              <mat-error *ngIf="registerGroup.controls['LastName'].hasError('required') && (LastName.touched || LastName.dirty)"> LastName is mandatory</mat-error>
+
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" [disabled]="registerGroup.invalid" (click)="onSubmit(form)">Register</button>
+
+              <a style=" margin-left: 16%;" [routerLink]="['/Login']">
+                Back to Login
+              </a>
+
+            </div>
+          </div>
+          <!--{{registerGroup.value|json}}
+
+      {{registerGroup.errors?.passwordMismatch|json}}-->
+          <!--{{registerGroup.invalid|json}}-->
+
+        </form>
+      </mat-card>
+ 
+   
+    
+  </div>
+
+</div>
+
+  
+  
+
+
+
+
+
+

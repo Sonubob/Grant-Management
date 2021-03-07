@@ -1,0 +1,406 @@
+
+<!--<div style="background-color:rebeccapurple">
+ 
+  <mat-toolbar color="primary">
+    <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span style="margin-left:2%">Welcome to Applicant Screen</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div style="height:4px;background-color:#7c66bf">&nbsp;<br /></div>
+</div>-->
+<app-top-header [message]="headerMessage" (eventfortoggle)="onmenuclickevent($event)"></app-top-header>
+
+<mat-drawer-container class="example-container mat-container-class">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-list>
+      <mat-list-item style="margin-bottom: 10%;">
+        <div>
+          <mat-icon style="margin-left:30%">portrait</mat-icon><br />
+          Hello {{person.FirstName}}!
+        </div>
+
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span class="logout-class" (click)="logout()">Logout</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+
+  <mat-card style="margin:2%">
+    <form #form="ngForm">
+      <mat-card style="margin-left:5%;width:92%">
+        <span style="margin-right:5%">Grant Program</span>
+        <mat-form-field appearance="standard">
+          <mat-select style="width:100%" name="Grant" [(ngModel)]="person.GrantId" #GrantField="ngModel">
+            <mat-option *ngFor="let grant of grantList" [value]="grant.id">{{grant.name}}</mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+        <button  mat-raised-button color="primary" style="float:right" class="example-icon favorite-icon" aria-label="Example icon button with a menu icon" (click)="onSubmit(form)">
+         Save <mat-icon>save</mat-icon>
+        </button>
+      </mat-card>
+
+      <div style="display:flex">
+        <mat-card style="width:40%;margin-left:5%;margin-top:2%">
+          <div style="height:450px;overflow:scroll">
+
+
+            <!--<mat-select placeholder="Select"  style="width:100%" name="Grant" [(ngModel)]="person.GrantId" #GrantField="ngModel">
+    <mat-option *ngFor="let grant of grantList" [ngValue]="grant.id">{{grant.name}}</mat-option>
+  </mat-select>-->
+            <!--<select matNativeControl  style="width:57%" name="Grant" [(ngModel)]="person.GrantId" #GrantField="ngModel">
+    <option [ngValue]="0">-Select-</option>
+    <option *ngFor="let grant of grantList" [ngValue]="grant.id">{{grant.name}}</option>
+  </select>-->
+            <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+
+
+            <p>
+              <span class="heading-class">Applicant Details</span>  <!--<button mat-raised-button color="primary" style="float:right;margin-right:2%" aria-label="Example icon button with a menu icon" (click)="onSubmit(form)">
+                <mat-icon>save_alt</mat-icon>Save
+              </button>-->
+            </p>
+
+            <mat-form-field appearance="standard" class="fieldlength-half-class">
+              <mat-label>First Name</mat-label>
+
+              <input matInput placeholder="ex: Stella"  type="text" name="FirstName" [(ngModel)]="person.FirstName" #FirstNameField="ngModel" />
+
+            </mat-form-field>
+            <span>&nbsp;&nbsp;</span>
+            <mat-form-field appearance="standard" style="width:45%">
+              <mat-label>Last Name</mat-label>
+
+              <input matInput placeholder="ex: Stella" style="width:100%"  type="text" name="LastName" [(ngModel)]="person.LastName" #LastNameField="ngModel" />
+
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" style="width:92%">
+              <mat-label>Email ID</mat-label>
+
+              <input matInput placeholder="example@gmail.com" style="width:92%"  type="text" disabled value="{{person.Email}}" />
+
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width:92%">
+              <mat-label>Date of Birth</mat-label>
+
+              <input matInput placeholder="Datepicker"
+                      style="width:92%"
+                     bsDatepicker [bsValue]="person.Dob" value="{{person.Dob | date :'dd-MMM-yyyy'}}" (bsValueChange)="onValueChange($event)" />
+
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" style="width:45%">
+              <mat-label>Country</mat-label>
+              <mat-select name="Country" [(ngModel)]="person.Country" #CountryField="ngModel" (selectionChange)="onCountrychange()">
+                <mat-option *ngFor="let grant of countryList" [value]="grant.id">{{grant.name}}</mat-option>
+
+              </mat-select>
+
+
+            </mat-form-field>
+            <span>&nbsp;&nbsp;</span>
+            <mat-form-field appearance="standard" style="width:45%">
+              <mat-label>State</mat-label>
+              <mat-select name="State" [(ngModel)]="person.State" #StateField="ngModel">
+                <mat-option *ngFor="let grant of selectedstateList" [value]="grant.id">{{grant.name}}</mat-option>
+
+              </mat-select>
+
+
+            </mat-form-field>
+            <p>
+              <span style="margin-right:10%">Physically Disabled?</span>
+
+              <span>&nbsp;&nbsp;</span>
+              <mat-radio-group aria-label="Select an option" name="PhyDisabled" [(ngModel)]="person.PhyDisabled" #PhyDisabledField="ngModel">
+                <mat-radio-button [value]="true">Yes</mat-radio-button>  <span>&nbsp;&nbsp;</span>
+                <mat-radio-button [value]="false">No</mat-radio-button>
+              </mat-radio-group>
+            </p>
+
+            <p><span style="color: #4472c4">Contact Details</span></p>
+            <mat-form-field appearance="standard" style="width:92%">
+              <mat-label>Address</mat-label>
+
+              <input matInput placeholder="ex: Stella" style="width:100%" type="text" name="Address" [(ngModel)]="person.Address" #AddressField="ngModel" />
+
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width:92%">
+              <mat-label>City</mat-label>
+
+              <input matInput placeholder="ex: Stella" style="width:100%"  type="text" name="City" [(ngModel)]="person.City" #CityField="ngModel" />
+
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width:92%">
+              <mat-label>PostCode</mat-label>
+
+              <input matInput placeholder="ex: Stella" style="width:100%"  type="text" name="PostCode" [(ngModel)]="person.PostCode" #PostCodeField="ngModel" />
+
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width:92%">
+              <mat-label>Mobile</mat-label>
+
+              <input matInput placeholder="ex: Stella" style="width:100%" type="number" name="Mobile" [(ngModel)]="person.Mobile" #MobileField="ngModel" />
+
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width:92%">
+              <mat-label>Phone</mat-label>
+
+              <input matInput placeholder="ex: Stella" style="width:100%" type="number" name="Phone" [(ngModel)]="person.Phone" #PhoneField="ngModel" />
+
+            </mat-form-field>
+            <!--<table style="border:solid 1px black;width:100%">
+    <tr>
+      <td>
+
+        <td>&nbsp;</td>
+  <td>Grant Program</td>
+  <td>&nbsp;</td>
+  <td>
+    <select  style="width:57%" name="Grant" [(ngModel)]="person.GrantId" #GrantField="ngModel">
+      <option [ngValue]="0">-Select-</option>
+      <option *ngFor="let grant of grantList" [ngValue]="grant.id">{{grant.name}}</option>
+    </select>
+      </td>
+
+    </tr>
+    <tr>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="4" style="background-color:lightgrey"><span style="color: #4472c4">Applicant Details</span></td>
+    </tr>
+    <tr>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>First Name</td>
+      <td>&nbsp;</td>
+      <td>
+        <input style="width:57%"  type="text" name="FirstName" [(ngModel)]="person.FirstName" #FirstNameField="ngModel" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Last Name</td>
+      <td>&nbsp;</td>
+      <td>
+        <input style="width:57%"  type="text" name="LastName" [(ngModel)]="person.LastName" #LastNameField="ngModel" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Email</td>
+      <td>&nbsp;</td>
+      <td>
+        <input style="width:57%"  type="text" disabled value="{{person.Email}}" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Date of Birth</td>
+      <td>&nbsp;</td>
+      <td>-->
+            <!--<input style="width:57%" type="text" name="Dob" [(ngModel)]="person.Dob" #DobField="ngModel" />-->
+            <!--<input type="text"
+             placeholder="Datepicker"
+              style="width:57%"
+             bsDatepicker [bsValue]="person.Dob" value="{{person.Dob | date :'dd-MMM-yyyy'}}" (bsValueChange)="onValueChange($event)" />
+
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Country</td>
+    <td>&nbsp;</td>
+    <td>
+      <select style="width:57%"  name="Country" [(ngModel)]="person.Country" #CountryField="ngModel" (change)="onCountrychange()">
+        <option *ngFor="let grant of countryList" [ngValue]="grant.id">{{grant.name}}</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>State</td>
+    <td>&nbsp;</td>
+    <td>
+      <select style="width:57%"  name="State" [(ngModel)]="person.State" #StateField="ngModel">
+        <option *ngFor="let grant of selectedstateList" [ngValue]="grant.id">{{grant.name}}</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Physically Disabled?</td>
+    <td>&nbsp;</td>
+    <td>
+      Yes&nbsp;&nbsp; <input type="radio" name="PhyDisabled" [value]="true" [(ngModel)]="person.PhyDisabled" #PhyDisabledField="ngModel" />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      No &nbsp;&nbsp;<input type="radio" name="PhyDisabled" [value]="false" [(ngModel)]="person.PhyDisabled" #PhyDisabledField="ngModel" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4" style="background-color:lightgrey"><span style="color: #4472c4">Contact Details</span></td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Address</td>
+    <td>&nbsp;</td>
+    <td>
+      <input style="width:57%"  type="text" name="Address" [(ngModel)]="person.Address" #AddressField="ngModel" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>City</td>
+    <td>&nbsp;</td>
+    <td>
+      <input style="width:57%"  type="text" name="City" [(ngModel)]="person.City" #CityField="ngModel" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Postcode</td>
+    <td>&nbsp;</td>
+    <td>
+      <input style="width:57%"  type="text" name="PostCode" [(ngModel)]="person.PostCode" #PostCodeField="ngModel" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Mobile</td>
+    <td>&nbsp;</td>
+    <td>
+      <input style="width:57%"  type="number" name="Mobile" [(ngModel)]="person.Mobile" #MobileField="ngModel" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Phone</td>
+    <td>&nbsp;</td>
+    <td>
+      <input style="width:57%"  type="number" name="Phone" [(ngModel)]="person.Phone" #PhoneField="ngModel" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4" style="background-color:lightgrey"><span style="color: #4472c4">Educational Details</span></td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <ag-grid-angular #educationalGrid style="width: 100%; height: 500px;"
+                       class="ag-theme-balham"
+                       [rowData]="person.EducationalDetails"
+                       [gridOptions]="gridOptions"
+                       [columnDefs]="columnDefs" [frameworkComponents]="components" (gridReady)="onGridReady($event)">
+      </ag-grid-angular>
+    </td>
+  </tr>-->
+            <!--<tr>
+    <td>&nbsp;</td>
+    <td><input style=""  type="button" (click)="AddNew()" value="Add New Details" /> </td>
+    <td><input style=""  type="button" (click)="DeleteSelected()" value="Delete Selected Rows" /></td>
+    <td>&nbsp;</td>
+  </tr>-->
+            <!--<tr>
+      <td colspan="2"><input style=""  type="button" (click)="AddNew()" value="Add New Details" /></td>
+      <td colspan="2"><input style=""  type="button" (click)="DeleteSelected()" value="Delete Selected Rows" /></td>
+
+    </tr>
+    <tr>
+      <td colspan="4">  <input style=""  type="submit" [disabled]="form.invalid" value="Submit" (click)="onSubmit(form)" /></td>
+    </tr>
+  </table>-->
+          </div>
+        </mat-card>
+        <mat-card style="width:50%;margin-top:2%;margin-left:2%">
+
+          <p>
+            <button style=" margin-top: -7px;" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item aria-label="Example icon button with a delete icon" (click)="AddNew()">
+                <mat-icon>playlist_add</mat-icon>
+                <span>Add rows</span>
+              </button>
+              <button mat-menu-item aria-label="Example icon button with a delete icon" (click)="DeleteSelected()">
+                <mat-icon>delete</mat-icon>
+                <span>Delete selected</span>
+              </button>
+
+            </mat-menu>
+
+            <span style="color: #4472c4">Educational Details</span>
+            <!--<button mat-raised-button color="primary" style="float:right;margin-right:2%" aria-label="Example icon button with a menu icon" (click)="onSubmit(form)">
+              <mat-icon>save_alt</mat-icon> Save
+            </button>-->
+          </p>
+          <ag-grid-angular #educationalGrid style="width: 100%; height:400px"
+                           class="ag-theme-balham"
+                           [rowData]="person.EducationalDetails"
+                           [gridOptions]="gridOptions"
+                           [columnDefs]="columnDefs" [pagination]="true" [paginationPageSize]="10"  [frameworkComponents]="components" (gridReady)="onGridReady($event)">
+          </ag-grid-angular>
+
+        </mat-card>
+      </div>
+    </form>
+  </mat-card>
+
+</mat-drawer-container>
+<!--{{person.FirstName}}
+{{person.LastName}}-->

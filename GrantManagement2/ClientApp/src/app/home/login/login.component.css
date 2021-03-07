@@ -1,0 +1,6 @@
+.background-image-class {
+  background-image: url('../../../assets/backgroundimg.jpg');
+  background-size:cover;
+  width:100%;
+  height:100%;
+}

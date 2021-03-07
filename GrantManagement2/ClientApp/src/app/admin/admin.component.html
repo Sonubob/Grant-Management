@@ -1,0 +1,56 @@
+
+
+<!--<div style="background-color:rebeccapurple">
+  <mat-toolbar color="primary">
+    <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span style="margin-left:2%">Welcome to Admin Screen</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>home</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div style="height:4px;background-color:#7c66bf">&nbsp;<br /></div>
+</div>-->
+<app-top-header [message]="headerMessage" (eventfortoggle)="onmenuclickevent($event)"></app-top-header>
+
+<mat-drawer-container class="example-container" style=" height: calc(100% + 0px);">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-nav-list>
+      <mat-list-item style="margin-bottom: 10%;">
+        <div>
+          <mat-icon style="margin-left:30%">portrait</mat-icon><br/>
+         Hello admin</div>
+
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+       <a mat-list-item [routerLink]="['/Admin/GrantProgram']">Grant Program</a>
+      <mat-divider></mat-divider>
+     <a mat-list-item [routerLink]="['/Admin/Review']">Review</a>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span  style="cursor: pointer;
+     color:#3472d7" (click)="logout()">Logout</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+
+
+  <fieldset style="background-color:#e4e2de;height: calc(100% + 0px);">
+
+
+    <mat-card style="width:80%;margin-left:10%;margin-top:5%">
+      <div style="height:400px;overflow:scroll">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-card>
+
+  </fieldset>
+
+</mat-drawer-container>
+
+
+

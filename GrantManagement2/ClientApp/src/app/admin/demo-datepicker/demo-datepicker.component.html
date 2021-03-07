@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-xs-12 col-12 form-group">
+    <input type="text"
+           placeholder="Datepicker"
+          
+           bsDatepicker [bsValue]="selectedDate" value="{{selectedDate | date :'dd-MM-yyyy'}}" (bsValueChange)="onValueChange($event)"/>
+  </div>
+</div>
+<!--<p>Workss</p>-->
