@@ -54,7 +54,7 @@ namespace GrantManagement2
             services.AddSingleton<IGrantFactory, GrantFactory>();
             services.AddSingleton<IReviewFactory, ReviewFactory>();
 
-            services.AddSingleton<ILoginRegistrationBL, LoginRegistrationBL>();
+            services.AddSingleton<ILoginBL, LoginBL>();
             services.AddSingleton<IApplicantBL, ApplicantBL>();
             services.AddSingleton<IGrantBL, GrantBL>();
             services.AddSingleton<IReviewBL, ReviewBL>();

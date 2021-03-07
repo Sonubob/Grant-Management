@@ -9,30 +9,30 @@ using System.Threading.Tasks;
 
 namespace Business.BusinessLayer
 {
-    public class LoginRegistrationBL : ILoginRegistrationBL
+    public class LoginBL : ILoginBL
     {
         private readonly ILoginRegisterFactory _factoryObjt;
-        private  ILoginRegisterRepository _objt;
+        private  ILoginRegisterRepository _repoObjt;
         private  IApplicantBL _applicantobjt;
         
-        public LoginRegistrationBL(ILoginRegisterFactory factoryObjt, ILoginRegisterRepository objt, IApplicantBL applicantobjt)
+        public LoginBL(ILoginRegisterFactory factoryObjt, ILoginRegisterRepository objt, IApplicantBL applicantobjt)
         {
             _factoryObjt = factoryObjt;
-            _objt = objt;
+            _repoObjt = objt;
             _applicantobjt = applicantobjt;
         }
 
        
         public async  Task<ApplicantDetails> Login(UserDetails user)
         {
-             //_objt = _factoryObjt.GetInstanceofDBObject();
+             //_repoObjt = _factoryObjt.GetInstanceofDBObject();
             string userName = user.Email;
             string password = user.Password;
-            var result = _objt.ValidateUser(userName, password);
+            var result = _repoObjt.ValidateUser(userName, password);
            
             if(result == "User Valid")
             {
-                var userDetails = _objt.GetUserInfo(userName);
+                var userDetails = _repoObjt.GetUserInfo(userName);
                 if(userDetails.UserType == "Student")
                 {
                     return await _applicantobjt.GetApplicantFullDetails(userName);

@@ -22,12 +22,12 @@ namespace GrantManagement2.Controllers
     [Route("[controller]")]
     public class ApiController : Controller
     {
-        private readonly ILoginRegistrationBL _loginRegisterbl;
+        private readonly ILoginBL _loginRegisterbl;
         private readonly IConfiguration _config;
       
         private readonly ILogger<ApiController> _logger;
 
-        public ApiController(ILogger<ApiController> logger, ILoginRegistrationBL loginRegistrationbl, IConfiguration config)
+        public ApiController(ILogger<ApiController> logger, ILoginBL loginRegistrationbl, IConfiguration config)
         {
             _logger = logger;
             _loginRegisterbl = loginRegistrationbl;

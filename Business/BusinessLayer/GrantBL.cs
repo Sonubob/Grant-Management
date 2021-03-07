@@ -12,17 +12,17 @@ namespace Business.BusinessLayer
     {
 
         private readonly IGrantFactory _factoryObjt;
-        private IGrantRepository _objt;
+        private IGrantRepository _repoObjt;
 
         public GrantBL(IGrantFactory factoryObjt, IGrantRepository objt)
         {
             _factoryObjt = factoryObjt;
-            _objt = objt;
+            _repoObjt = objt;
         }
         public List<GrantProgram> GetGrantPrograms()
         {
-            //_objt = _factoryObjt.GetInstanceofDBObject();
-            var result = _objt.GetGrantDetails();
+            //_repoObjt = _factoryObjt.GetInstanceofDBObject();
+            var result = _repoObjt.GetGrantDetails();
             result.ForEach(x => x.StartDate = DateTime.Parse(x.StartDate?.ToShortDateString()));
             if (result.Count > 0)
             {
@@ -36,7 +36,7 @@ namespace Business.BusinessLayer
 
         public List<GrantProgram> AddUpdateGrantDetails(List<GrantProgram> data)
         {
-            //_objt = _factoryObjt.GetInstanceofDBObject();
+            //_repoObjt = _factoryObjt.GetInstanceofDBObject();
             var result = "";
             var val = 0;
             var list = GetGrantPrograms();
@@ -49,12 +49,12 @@ namespace Business.BusinessLayer
                     {
                         var x = list.Max(x => x.GrantId);
                         //  entry.GrantId = x+1;
-                        var indx = _objt.AddGrantDetails(entry);
+                        var indx = _repoObjt.AddGrantDetails(entry);
                         entry.GrantId = indx;
                     }
                     else
                     {
-                        _objt.UpdateGrantDetail(entry);
+                        _repoObjt.UpdateGrantDetail(entry);
                     }
 
                 }
@@ -62,11 +62,11 @@ namespace Business.BusinessLayer
                 {
                     if (!(data.Exists(x => x.GrantId == entry.GrantId)))
                     {
-                        _objt.RemoveGrantDetails(entry);
+                        _repoObjt.RemoveGrantDetails(entry);
                     }
                 }
                 // list = GetGrantPrograms();
-                //  result = __objt.UpdateGrantDetails(data);
+                //  result = __repoObjt.UpdateGrantDetails(data);
 
 
                 return GetGrantPrograms();
@@ -76,7 +76,7 @@ namespace Business.BusinessLayer
             {
                 foreach (var entry in data)
                 {
-                    val = _objt.AddGrantDetails(entry);
+                    val = _repoObjt.AddGrantDetails(entry);
                 }
                 if (val > 0)
                 {

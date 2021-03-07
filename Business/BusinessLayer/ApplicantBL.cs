@@ -13,21 +13,21 @@ namespace Business.BusinessLayer
     public class ApplicantBL: IApplicantBL
     {
         private readonly IApplicantFactory _factoryObjt;
-        private IApplicantRepository _objt;
+        private IApplicantRepository _repoObjt;
 
         public ApplicantBL(IApplicantFactory factoryObjt, IApplicantRepository objt)
         {
             _factoryObjt = factoryObjt;
-            _objt = objt;
+            _repoObjt = objt;
         }
 
         public async Task<ApplicantDropdownList> GetApplicantDropdownList()
         {
-            //_objt = _factoryObjt.GetInstanceofDBObject();
+            //_repoObjt = _factoryObjt.GetInstanceofDBObject();
 
-            var countryLookups = _objt.GetCountryLookups();
-            var stateLookups = _objt.GetStateLookups();
-            var grantLookup = _objt.GetGrantDetails();
+            var countryLookups = _repoObjt.GetCountryLookups();
+            var stateLookups = _repoObjt.GetStateLookups();
+            var grantLookup = _repoObjt.GetGrantDetails();
             var result = await _factoryObjt.GetDropdownModel(countryLookups, stateLookups, grantLookup);
             return result;
 
@@ -35,28 +35,28 @@ namespace Business.BusinessLayer
 
         public async Task<ApplicantDetails> UpdateApplicantDetails(ApplicantDetails data)
         {
-            //_objt = _factoryObjt.GetInstanceofDBObject();
+            //_repoObjt = _factoryObjt.GetInstanceofDBObject();
 
             var applicantData = await _factoryObjt.GetApplicantDetailObject(data);
-            var result = _objt.UpdateApplicantDetails(applicantData);
+            var result = _repoObjt.UpdateApplicantDetails(applicantData);
             var educationDetails = data.EducationalDetails;
             var detailsDB = await GetApplicantFullDetails(applicantData.Email);
             foreach (var detail in educationDetails)
             {
                 if (detail.EducationalDetailId == 0)
                 {
-                    _objt.AddEducationDetail(detail);
+                    _repoObjt.AddEducationDetail(detail);
                 }
                 else
                 {
-                    _objt.UpdateEducationDetail(detail);
+                    _repoObjt.UpdateEducationDetail(detail);
                 }
             }
             foreach (var entry in detailsDB.EducationalDetails)
             {
                 if (!(educationDetails.Exists(x => x.EducationalDetailId == entry.EducationalDetailId)))
                 {
-                    _objt.DeleteEducationDetail(entry);
+                    _repoObjt.DeleteEducationDetail(entry);
                 }
             }
             if (result == "Done")
@@ -73,8 +73,8 @@ namespace Business.BusinessLayer
 
         public async Task<ApplicantDetails> GetApplicantFullDetails(string userName)
         {
-            var applicantDetails = _objt.GetApplicantDetailByName(userName);
-            var educationalDetails = _objt.GetEducationalDetailsByApplicant(applicantDetails.ApplicantId);
+            var applicantDetails = _repoObjt.GetApplicantDetailByName(userName);
+            var educationalDetails = _repoObjt.GetEducationalDetailsByApplicant(applicantDetails.ApplicantId);
             if (applicantDetails != null)
             {
                 ApplicantDetails responseDto = await _factoryObjt.GetApplicantResponseObject(applicantDetails, educationalDetails);

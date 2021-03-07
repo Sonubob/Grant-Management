@@ -11,24 +11,24 @@ namespace Business.BusinessLayer
     public class ReviewBL: IReviewBL
     {
         private readonly IReviewFactory _factoryObjt;
-        private IReviewRepository _objt;
+        private IReviewRepository _repoObjt;
 
         public ReviewBL(IReviewFactory factoryObjt, IReviewRepository objt)
         {
             _factoryObjt = factoryObjt;
-            _objt = objt;
+            _repoObjt = objt;
         }
         public List<ApplicantGrantDetails> GetApplicantGrantDetails()
         {
-            //_objt = _factoryObjt.GetInstanceofDBObject();
-            return _objt.GetApplicantGrantDetails();
+            //_repoObjt = _factoryObjt.GetInstanceofDBObject();
+            return _repoObjt.GetApplicantGrantDetails();
 
         }
 
 
         public int UpdateApplicantReviewStatus(ApplicantGrantDetails details)
         {
-            var applicantDetails = _objt.GetApplicantDetailsById(details.ApplicantId);
+            var applicantDetails = _repoObjt.GetApplicantDetailsById(details.ApplicantId);
 
             if (details.ReviewStatus == 1)
             {
@@ -40,7 +40,7 @@ namespace Business.BusinessLayer
                 applicantDetails.ReviewStatus = false;
                 applicantDetails.ApplicationStatus = "Rejected";
             }
-            return _objt.UpdateApplicantDetail(applicantDetails);
+            return _repoObjt.UpdateApplicantDetail(applicantDetails);
         }
 
     }
