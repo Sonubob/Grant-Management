@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Business.Interfaces
 {
-    public interface ILoginRegistrationBL
+    public interface ILoginBL
     {
         public Task<ApplicantDetails> Login(UserDetails user);
       

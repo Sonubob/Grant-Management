@@ -11,18 +11,18 @@ namespace Business.BusinessLayer
     public class RegistrationBL:IRegistrationBL
     {
         private readonly ILoginRegisterFactory _factoryObjt;
-        private IRegisterRepository _objt;
+        private IRegisterRepository _repoObjt;
 
         public RegistrationBL(ILoginRegisterFactory factoryObjt, IRegisterRepository objt)
         {
             _factoryObjt = factoryObjt;
-            _objt = objt;
+            _repoObjt = objt;
         }
 
         public int RegisterUser(RegisterUser user)
         {
-            //_objt = _factoryObjt.GetInstanceofDBObject();
-            if (_objt.ValidateUser(user.EmailID, user.Password) == "User Valid")
+            //_repoObjt = _factoryObjt.GetInstanceofDBObject();
+            if (_repoObjt.ValidateUser(user.EmailID, user.Password) == "User Valid")
             {
                 return (int)Status.UserExists;
             }
@@ -31,11 +31,11 @@ namespace Business.BusinessLayer
                 var reqDto = _factoryObjt.GetUserInfoObject(user);
 
 
-                var result = _objt.AddUser(reqDto);
+                var result = _repoObjt.AddUser(reqDto);
                 if (result.UserId > 0)
                 {
                     var applicantreqDto = _factoryObjt.GetApplicantDetailsObject(user, result);
-                    var resultData = _objt.AddApplicantDetails(applicantreqDto);
+                    var resultData = _repoObjt.AddApplicantDetails(applicantreqDto);
                     if (resultData == "Done")
                     {
                         return (int)Status.Success;
